@@ -24,13 +24,13 @@ import org.junit.jupiter.api.Test;
 
 public class PasswordTest {
     private IPassword getPassword(String s) throws Exception {
-        //return (IPassword) new Password(s);
+        return (IPassword) new Password(s);
         //return (IPassword) new BugDoesNotTrim(s);
-        return (IPassword) new BugToShortPassword(s);
+        //return (IPassword) new BugToShortPassword(s);
         //return (IPassword) new BugVeryShort(s);
-        // return (IPassword) new BugWrongExceptionMessage(s);
-        // return (IPassword) new BugMissingPasswordLengthCheck(s);
-        // return (IPassword) new BugMissingNumberCheck(s);
+        //return (IPassword) new BugWrongExceptionMessage(s);
+        //return (IPassword) new BugMissingPasswordLengthCheck(s);
+        //return (IPassword) new BugMissingNumberCheck(s);
         //return (IPassword) new BugIsPasswordSameAlwaysTrue(s);
         //return (IPassword) new BugWrongHashingAlgorithm(s);
     }
@@ -54,10 +54,16 @@ public class PasswordTest {
     public void shouldThrowForPasswordsShorterThan12() throws Exception {
         Exception e1 = assertThrows(
             Exception.class,
-            () -> getPassword("eleven11111"),
+            () -> getPassword("eleven11111"), // eleven character password input for BugToShortPassword
+            "Passwords shorter than 12 characters should throw an exception"
+        );
+        Exception e2 = assertThrows(
+            Exception.class,
+            () -> getPassword("six111"), // six character password input for BugVeryShort
             "Passwords shorter than 12 characters should throw an exception"
         );
     }
+
 
 
 
